@@ -1,13 +1,13 @@
 import express from 'express'
 import { createServer } from 'http'
-import socketIO from 'socket.io'
+import io from 'socket.io'
 
 const app = express()
 const server = createServer(app)
-const io = socketIO(server)
+const socket = io(server)
 
 const startServer = (port) => {
-	io.on('connection', (socket) => {
+	socket.on('connection', (clientSocket) => {
 		console.log('connected a socket')
 	})
 
