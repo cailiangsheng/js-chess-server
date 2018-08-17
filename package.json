@@ -1,0 +1,23 @@
+{
+  "name": "js-chess-server",
+  "version": "1.0.0",
+  "description": "Server for Chess Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cailiangsheng/js-chess-server.git"
+  },
+  "keywords": [
+    "Chess",
+    "Server"
+  ],
+  "author": "Larry Cai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cailiangsheng/js-chess-server/issues"
+  },
+  "homepage": "https://github.com/cailiangsheng/js-chess-server#readme"
+}
