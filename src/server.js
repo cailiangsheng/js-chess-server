@@ -6,10 +6,17 @@ const app = express()
 const server = createServer(app)
 const io = socketIO(server)
 
-io.on('connection', (socket) => {
-	console.log('connected a socket')
-})
+const startServer = (port) => {
+	io.on('connection', (socket) => {
+		console.log('connected a socket')
+	})
 
-server.listen(3000, () => {
+	server.listen(port, () => {
+		console.log('server listening on', port, '...')
+	})
+}
 
-})
+export {
+	startServer
+}
+
