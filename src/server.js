@@ -9,6 +9,10 @@ const socket = io(server)
 const startServer = (port) => {
 	socket.on('connection', (clientSocket) => {
 		console.log('connected a socket')
+	
+		clientSocket.on('hello', (data) => {
+			console.log('hello', data)
+		})
 	})
 
 	server.listen(port, () => {
@@ -19,4 +23,3 @@ const startServer = (port) => {
 export {
 	startServer
 }
-
