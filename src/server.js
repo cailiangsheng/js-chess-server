@@ -15,16 +15,16 @@ const startServer = (port) => {
 	clientSockets = []
 
 	socket.on('connection', (clientSocket) => {
-		console.log(`Connected a socket[${clientSocket.id}]`)
+		console.log(`\nConnected a socket[${clientSocket.id}]`)
 		clientSockets.push(clientSocket)
 
 		clientSocket.on('disconnecting', (reason) => {
-			console.log(`Disconnecting a socket[${clientSocket.id}]: ${reason}`)
+			console.log(`\nDisconnecting a socket[${clientSocket.id}]: ${reason}`)
 
 			const rooms = _.keys(clientSocket.rooms)
 			const socketId = clientSocket.id
 			rooms.forEach(roomId => {
-				socket.to(roomId).emit('leaveRoom', {
+				clientSocket.to(roomId).emit('leaveRoom', {
 					roomId,
 					socketId
 				})
@@ -32,14 +32,14 @@ const startServer = (port) => {
 		})
 
 		clientSocket.on('disconnect', (reason) => {
-			console.log(`Disconnected a socket[${clientSocket.id}]: ${reason}`)
+			console.log(`\nDisconnected a socket[${clientSocket.id}]: ${reason}`)
 			_.pull(clientSockets, clientSocket)
 		})
 
 		clientSocket.on('enterRoom', (data) => {
 			const {roomId} = data
 			const socketId = clientSocket.id
-			console.log(`Socket[${clientSocket.id}] entered room[${roomId}]`)
+			console.log(`\nSocket[${clientSocket.id}] entered room[${roomId}]`)
 			clientSocket.join(roomId, () => {
 				clientSocket.to(roomId).emit('enterRoom', {
 					roomId,
