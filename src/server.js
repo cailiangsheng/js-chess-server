@@ -15,16 +15,24 @@ const startServer = (port) => {
 	clientSockets = []
 
 	socket.on('connection', (clientSocket) => {
-		console.log('Connected a socket')
+		console.log(`Connected a socket[${clientSocket.id}]`)
 		clientSockets.push(clientSocket)
 
 		clientSocket.on('disconnect', (reason) => {
-			console.log('Disconnected a socket')
+			console.log(`Disconnected a socket[${clientSocket.id}]`)
 			_.pull(clientSockets, clientSocket)
 		})
 
-		clientSocket.on('hello', (data) => {
-			console.log('hello', data)
+		clientSocket.on('enterRoom', (data) => {
+			const {roomId} = data
+			const socketId = clientSocket.id
+			console.log(`Socket[${clientSocket.id}] entered room[${roomId}]`)
+			clientSocket.join(roomId, () => {
+				clientSocket.to(roomId).emit('enterRoom', {
+					roomId,
+					socketId
+				})
+			})
 		})
 	})
 
