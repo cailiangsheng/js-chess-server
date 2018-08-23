@@ -20,7 +20,15 @@ const startServer = (port) => {
 
 		clientSocket.on('disconnecting', (reason) => {
 			console.log(`Disconnecting a socket[${clientSocket.id}]: ${reason}`)
-			console.log(clientSocket.rooms)
+
+			const rooms = _.keys(clientSocket.rooms)
+			const socketId = clientSocket.id
+			rooms.forEach(roomId => {
+				socket.to(roomId).emit('leaveRoom', {
+					roomId,
+					socketId
+				})
+			})
 		})
 
 		clientSocket.on('disconnect', (reason) => {
