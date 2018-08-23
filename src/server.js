@@ -18,8 +18,13 @@ const startServer = (port) => {
 		console.log(`Connected a socket[${clientSocket.id}]`)
 		clientSockets.push(clientSocket)
 
+		clientSocket.on('disconnecting', (reason) => {
+			console.log(`Disconnecting a socket[${clientSocket.id}]: ${reason}`)
+			console.log(clientSocket.rooms)
+		})
+
 		clientSocket.on('disconnect', (reason) => {
-			console.log(`Disconnected a socket[${clientSocket.id}]`)
+			console.log(`Disconnected a socket[${clientSocket.id}]: ${reason}`)
 			_.pull(clientSockets, clientSocket)
 		})
 
