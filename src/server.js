@@ -47,6 +47,15 @@ const startServer = (port) => {
 				})
 			})
 		})
+
+		clientSocket.on('updateState', (data) => {
+			const {roomId, state} = data
+			const socketId = clientSocket.id
+			clientSocket.to(roomId).emit('updateState', {
+				socketId,
+				state
+			})
+		})
 	})
 
 	server.listen(port, () => {
