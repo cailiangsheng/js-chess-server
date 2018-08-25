@@ -1,3 +1,5 @@
 import { startServer } from './server'
 
-startServer(3000)
+const port = 5555
+
+startServer(port)
